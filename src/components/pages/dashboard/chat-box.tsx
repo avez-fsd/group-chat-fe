@@ -60,8 +60,12 @@ export default function ChatBox() {
           borderWidth={1}
           borderColor={"red"}
         >
-          <Text textAlign={"right"}>Hi Bro</Text>
-          <Text textAlign={"left"}>Hi Bro</Text>
+          <Box width={"full"}>
+            <Text textAlign={"right"}>Hi Bro</Text>
+          </Box>
+          <Box width={"full"}>
+            <Text textAlign={"left"}>Hi Bro</Text>
+          </Box>
         </Box>
         <Box
           position={"absolute"}
