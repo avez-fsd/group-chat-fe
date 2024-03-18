@@ -61,7 +61,6 @@ export default function Login() {
         } else {
           router.push("/");
         }
-        // const session = await getSession();
       } catch (error) {
         console.log(error, "check error");
       }
@@ -109,7 +108,7 @@ export default function Login() {
       <Button
         colorScheme="whatsapp"
         mt={8}
-        onClick={handleSubmit}
+        onClick={handleSubmit as any}
         isLoading={isSubmitting}
         isDisabled={!dirty || !isValid}
       >

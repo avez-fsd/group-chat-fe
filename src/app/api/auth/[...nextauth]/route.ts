@@ -72,7 +72,6 @@ export const authOptions:NextAuthOptions = {
     },
     callbacks: {
         async jwt({token, user}) {
-            console.log(token, user,'here check this once from server')
             return {...token, ...user};
         },
         async session({session, token, user}) {

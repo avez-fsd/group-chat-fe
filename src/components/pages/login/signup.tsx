@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { getSession, signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function SignUp() {
@@ -65,9 +65,9 @@ export default function SignUp() {
       } else {
         router.push("/");
       }
-      // setTimeout(async () => {
-      const session = await getSession();
-      console.log(session, "check this");
+      // // setTimeout(async () => {
+      // const session = await getSession();
+      // console.log(session, "check this");
     },
   });
 
@@ -125,7 +125,7 @@ export default function SignUp() {
       <Button
         colorScheme="whatsapp"
         mt={8}
-        onClick={handleSubmit}
+        onClick={handleSubmit as any}
         isLoading={isSubmitting}
         isDisabled={!dirty || !isValid}
       >

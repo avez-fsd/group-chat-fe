@@ -1,20 +1,80 @@
-import { HStack, VStack, Box, Image, Text } from "@chakra-ui/react";
+import { GroupData, useChat } from "@/stores/hooks/useChat";
+import { useSideMenu } from "@/stores/hooks/useSideMenu";
+import { isMobile } from "@/utils/common";
+import {
+  HStack,
+  VStack,
+  Box,
+  Image,
+  Text,
+  SkeletonCircle,
+  SkeletonText,
+} from "@chakra-ui/react";
 import {} from "framer-motion";
 import React from "react";
 
-export default function ChatCard() {
+type ChatCardPropsType = {
+  isLoading: boolean;
+  group?: GroupData;
+};
+
+export default function ChatCard({ isLoading, group }: ChatCardPropsType) {
+  const { setGroup, groupData, isActive } = useChat((state) => {
+    return {
+      setGroup: state.setGroup,
+      isActive: state.isActive,
+      groupData: state.groupData,
+    };
+  });
+  const { closeSideMenu } = useSideMenu();
+
+  const setCurrentGroup = () => {
+    if (group?.groupUniqueId !== groupData?.groupUniqueId || !isActive) {
+      setGroup(group);
+    }
+    if (isMobile()) {
+      closeSideMenu();
+    }
+  };
+
   return (
-    <HStack w={"full"} mb={2} cursor={"pointer"}>
+    <HStack
+      w={"full"}
+      mb={2}
+      cursor={"pointer"}
+      onClick={setCurrentGroup}
+      key={group?.groupUniqueId}
+    >
       <Box>
-        <Image
-          src="https://bit.ly/dan-abramov"
-          alt="Dan Abramov"
-          borderRadius="full"
-          boxSize="30px"
-        />
+        {isLoading ? (
+          <SkeletonCircle size={"30px"} />
+        ) : (
+          <Image
+            src="https://bit.ly/dan-abramov"
+            alt="Dan Abramov"
+            borderRadius="full"
+            boxSize="30px"
+            fallback={<SkeletonCircle size={"30px"} />}
+          />
+        )}
       </Box>
-      <VStack>
-        <Text fontSize={"sm"}>Power Rangers</Text>
+      <VStack width={"full"} alignItems={"flex-start"}>
+        {isLoading ? (
+          <SkeletonText noOfLines={1} skeletonHeight="2" w={"70%"} />
+        ) : (
+          <Text
+            textTransform={"capitalize"}
+            w={"60%"}
+            textOverflow={"ellipsis"}
+            overflow={"hidden"}
+            whiteSpace={"nowrap"}
+            fontSize={"sm"}
+          >
+            {!group?.isGroup
+              ? group?.otherParticipants?.[0]?.name
+              : group?.name}
+          </Text>
+        )}
       </VStack>
     </HStack>
   );
