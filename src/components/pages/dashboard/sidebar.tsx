@@ -24,6 +24,8 @@ import { getUserAssociatedGroups } from "@/services/api/api";
 import UserSearch from "./modals/user-search/user-search";
 import { useUserSearchModal } from "@/stores/hooks/useUserSearchModal";
 import { GroupData } from "@/stores/hooks/useChat";
+import { useGroupModal } from "@/stores/hooks/useGroupModal";
+import CreateGroup from "./modals/create-group/create-group";
 
 export default function SideBar({ session }: any) {
   const { isOpen, toggleIsOpen, groups, setGroups } = useSideMenu((state) => {
@@ -36,6 +38,8 @@ export default function SideBar({ session }: any) {
   });
   const [isLoading, setIsLoading] = useState(true);
   const { onOpen } = useUserSearchModal();
+  const { onOpen: onOpenGroupModal, isOpen: isOpenGroupModal } =
+    useGroupModal();
 
   useEffect(() => {
     (async () => {
@@ -44,7 +48,6 @@ export default function SideBar({ session }: any) {
       });
       setGroups(data.data?.groups);
       setIsLoading(false);
-      console.log(data, "check groups");
     })();
   }, []);
 
@@ -52,6 +55,7 @@ export default function SideBar({ session }: any) {
     return (
       <>
         <UserSearch session={session} />
+        <CreateGroup session={session} />
         <VStack
           bg={"white"}
           borderRadius={"lg"}
@@ -80,7 +84,7 @@ export default function SideBar({ session }: any) {
                 <SkeletonCircle size={"50px"} />
               ) : (
                 <Image
-                  src="https://bit.ly/dan-abramov"
+                  src="/user.png"
                   alt={session?.user?.name}
                   borderRadius="full"
                   boxSize="50px"
@@ -155,8 +159,9 @@ export default function SideBar({ session }: any) {
             <Box>
               <IconButton
                 bg={"white"}
-                aria-label="Search database"
+                aria-label="Create Group"
                 icon={<PlusSquareIconW />}
+                onClick={onOpenGroupModal}
               />
             </Box>
           </HStack>

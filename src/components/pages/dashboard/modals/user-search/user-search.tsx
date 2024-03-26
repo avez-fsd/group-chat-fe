@@ -105,6 +105,7 @@ export default function UserSearch({ session }: { session: any }) {
       setNewGroup(newGroup);
       setGroup(newGroup);
       closeSideMenu();
+      onClose();
     } else {
       toast({
         title: error,
@@ -179,7 +180,7 @@ export default function UserSearch({ session }: { session: any }) {
               >
                 <Box>
                   <Image
-                    src="https://bit.ly/dan-abramov"
+                    src="/user.png"
                     alt="Dan Abramov"
                     borderRadius="full"
                     boxSize="40px"
@@ -203,13 +204,6 @@ export default function UserSearch({ session }: { session: any }) {
             ))}
           </VStack>
         </ModalBody>
-
-        {/* <ModalFooter>
-          <Button colorScheme="blue" mr={3}>
-            Save
-          </Button>
-          <Button>Cancel</Button>
-        </ModalFooter> */}
       </ModalContent>
     </Modal>
   );

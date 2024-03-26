@@ -5,21 +5,17 @@ export interface GroupData {
     isAdmin: boolean,
     isGroup: boolean,
     name: string,
-    otherParticipants: OtherParticipant[]
+    otherParticipants: User[]
 }
 
 export interface Message {
     message: string;
     createdAt: string;
     updatedAt: string;
-    user: {
-      name: string;
-      email: string;
-      userUniqueId: string;
-    };
+    user: User;
 }
 
-interface OtherParticipant {
+export interface User {
     email: string,
     name: string,
     userUniqueId: string

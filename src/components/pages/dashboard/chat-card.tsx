@@ -50,7 +50,7 @@ export default function ChatCard({ isLoading, group }: ChatCardPropsType) {
           <SkeletonCircle size={"30px"} />
         ) : (
           <Image
-            src="https://bit.ly/dan-abramov"
+            src={group?.isGroup ? "/group2.png" : "user.png"}
             alt="Dan Abramov"
             borderRadius="full"
             boxSize="30px"
